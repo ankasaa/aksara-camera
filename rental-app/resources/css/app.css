@@ -63,7 +63,6 @@ body {
 /* Daftar tautan navigasi */
 .nav-links {
   list-style: none; /* Menghapus penanda daftar */
-  display: flex; /* Menggunakan flexbox untuk susunan horizontal */
 }
 
 .nav-links li {
@@ -79,7 +78,6 @@ body {
 
 /* Hamburger menu untuk perangkat kecil */
 .hamburger {
-  display: none; /* Menyembunyikan hamburger secara default */
   flex-direction: column; /* Menyusun ikon hamburger secara vertikal */
   cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
 }
@@ -104,6 +102,7 @@ body {
 
 /* Hero section */
 .hero-section {
+  position: relative; /* Posisi relatif agar overlay gradient bisa diposisikan di dalamnya */
   height: 100vh; /* Membuat hero section tinggi layar penuh */
   width: 100%; /* Lebar hero section 100% */
   display: flex; /* Menggunakan flexbox untuk tata letak hero section */
@@ -117,7 +116,12 @@ body {
 }
 
 .kanan {
-  margin-left: 176px; /* Memberikan margin kiri pada elemen dengan kelas 'kanan' */
+  margin-left: 0; /* Margin kiri 0 di mobile, diatur ulang di layar besar */
+}
+@media (min-width: 768px) {
+  .kanan {
+    margin-left: 176px;
+  }
 }
 
 /* Animasi tombol */
@@ -158,56 +162,8 @@ body {
   transform: translateX(-150px); /* Teks bergeser ke kiri */
 }
 
-/* Sidebar for small devices */
-.sidebar {
-  position: fixed; /* Menempatkan sidebar secara tetap */
-  top: 0; /* Menempatkan sidebar di bagian atas */
-  left: -250px; /* Menyembunyikan sidebar di sisi kiri */
-  width: 250px; /* Lebar sidebar */
-  height: 100%; /* Tinggi sidebar 100% */
-  background-color: rgb(0 0 0 / 30%); /* Latar belakang sidebar */
-  color: white; /* Warna teks sidebar */
-  display: flex; /* Menyusun elemen sidebar menggunakan flexbox */
-  flex-direction: column; /* Menyusun elemen secara vertikal */
-  padding-top: 20px; /* Memberikan padding atas */
-  transition: left 0.3s; /* Efek transisi pada pergeseran sidebar */
-  z-index: 999; /* Menetapkan lapisan sidebar di atas elemen lain */
-}
-/* Gaya untuk sidebar ketika ditampilkan */
-.sidebar.show {
-  left: 0; /* Menetapkan posisi sidebar ke kiri (menampilkan sidebar dari kiri) */
-}
-
-/* Gaya untuk daftar link di sidebar */
-.sidebar-links {
-  list-style: none; /* Menghapus bullet points dari list item */
-  padding: 50px 30px; /* Memberikan padding atas dan bawah, serta padding kiri dan kanan */
-}
-
-/* Gaya untuk setiap item di dalam sidebar */
-.sidebar-links li {
-  margin: 47px 0px; /* Memberikan jarak vertikal antar item sidebar */
-}
-
-/* Gaya untuk link di dalam sidebar */
-.sidebar-links a {
-  color: white; /* Mengatur warna teks link menjadi putih */
-  text-decoration: none; /* Menghapus garis bawah pada link */
-  font-size: 18px; /* Menetapkan ukuran font link */
-}
-
 /* Media query yang berlaku untuk layar dengan lebar maksimal 768px */
 @media (max-width: 768px) {
-  /* Menyembunyikan navigasi (nav-links) pada layar kecil */
-  .nav-links {
-    display: none; /* Menghilangkan tampilan daftar navigasi */
-  }
-
-  /* Menampilkan ikon hamburger untuk menu di layar kecil */
-  .hamburger {
-    display: flex; /* Menampilkan tombol hamburger dalam bentuk flex */
-  }
-
   /* Mengubah ukuran logo navbar agar lebih kecil di layar kecil */
   .navbar-logo img {
     width: 20px; /* Mengatur lebar logo menjadi 20px */
@@ -216,10 +172,6 @@ body {
   /* Menyembunyikan elemen dengan kelas 'images' pada layar kecil */
   .images {
     display: none; /* Menghilangkan gambar pada tampilan kecil */
-  }
-  .hero-section {
-    padding: 20px; /* Menambahkan padding pada layar kecil */
-    text-align: center; /* Ubah teks menjadi rata tengah pada layar kecil */
   }
 }
 
@@ -250,25 +202,9 @@ body {
 }
 /* icon-item-product */
 
-/* Responsive */
-@media (max-width: 768px) {
-  .catalog-icon-product {
-    display: none;
-  }
-}
-
 .row {
-  display: grid;
   padding: 5px;
   gap: 10px; /* Menambahkan jarak antar kartu */
-}
-
-.row:first-child {
-  grid-template-columns: 40% 60%;
-}
-
-.row:nth-child(2) {
-  grid-template-columns: 60% 40%;
 }
 
 .card {
@@ -441,11 +377,6 @@ body {
 
 @media screen and (max-width: 768px) {
   /* Untuk tablet */
-  .row {
-    grid-template-columns: 1fr !important; /* Satu kolom untuk semua kartu */
-    gap: 15px;
-  }
-
   .card {
     padding: 15px; /* Sedikit lebih banyak ruang untuk sentuhan */
   }
@@ -456,6 +387,7 @@ body {
 
   .card p {
     font-size: 13px; /* Ukuran teks lebih kecil */
+    max-width: 100%;
   }
 
   .card button {
@@ -471,11 +403,6 @@ body {
 
 @media screen and (max-width: 480px) {
   /* Untuk ponsel */
-  .row {
-    grid-template-columns: 1fr; /* Satu kolom */
-    gap: 10px;
-  }
-
   .card {
     padding: 10px;
   }
@@ -525,145 +452,7 @@ body {
   margin-top: 50px; /* Memberikan sedikit ruang di atas */
 }
 
-/* Menata teks judul Brand */
-.brand-title {
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 75px;
-  margin: 0; /* Menghapus margin default */
-}
-
 /* Menata div yang berisi logo-brand */
-.brand-logos {
-  display: flex; /* Menggunakan flexbox untuk tata letak logo */
-  justify-content: center; /* Menengahkan logo secara horizontal */
-  align-items: center; /* Menyelaraskan logo secara vertikal */
-  gap: 10px;
-  flex-wrap: wrap; /* Membuat logo dapat pindah baris jika terlalu lebar */
-  margin: 60px; /* Memberikan ruang di atas logo */
-}
-
-/* Menambahkan styling untuk logo */
-.brand-logos img {
-  height: auto; /* Memastikan logo tidak terdistorsi */
-  max-height: 150px; /* Membatasi tinggi maksimal logo */
-  transition: transform 0.3s ease, filter 0.3s ease; /* Efek hover pada logo dan filter */
-  filter: grayscale(100%); /* Mengatur logo menjadi hitam putih sebelum hover */
-  padding: 0 15px; /* Memberikan jarak horizontal untuk logo */
-  position: relative;
-}
-
-/* Efek hover pada logo */
-.brand-logos img:hover {
-  transform: scale(1.1); /* Membuat logo sedikit lebih besar saat hover */
-  filter: grayscale(0%); /* Menghilangkan efek hitam putih */
-}
-
-/* Menambahkan garis vertikal */
-.brand-logos img:not(:last-child) {
-  border-right: 1px solid rgba(255, 255, 255, 0.3); /* Garis vertikal tipis */
-}
-
-.bundle-section {
-  position: relative;
-  display: flex;
-  height: 200px;
-  align-items: center;
-  background: #2e2e2e;
-  border-radius: 10px;
-  padding: 20px;
-  overflow: hidden;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.bundle-content {
-  z-index: 2;
-  left: 60px;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.bundle-content h2 {
-  color: #ffffff;
-  margin: 0 0 10px 0;
-  font-size: 50px;
-}
-.bundle-text {
-  color: #fdd835;
-  font-size: 50px;
-}
-
-.bundle-content button {
-  padding: 10px 30px;
-  font-size: 16px;
-  color: white;
-  background-color: #fdd835;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.bundle-content button:hover {
-  background-color: #d4af37;
-}
-
-.bundle-images {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  overflow: hidden;
-  transition: all 0.5s ease;
-}
-
-.bundle-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  z-index: 1;
-  transition: transform 0.5s ease;
-}
-
-.bundle-camera {
-  position: relative;
-  z-index: 1;
-  max-height: 250px;
-  margin-right: 20px;
-  transition: transform 0.5s ease;
-  right: 120px;
-}
-
-.bundle-images::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  z-index: 2;
-  transition: opacity 0.5s ease;
-}
-
-.bundle-section:hover .bundle-images::before {
-  opacity: 0;
-}
-
-.bundle-section:hover .bundle-background {
-  transform: scale(1.3);
-}
-
-.bundle-section:hover .bundle-camera {
-  transform: scale(1.1) translateY(-20px);
-}
 
 /* Efek glow */
 .glow {
@@ -716,27 +505,20 @@ body {
   background-color: transparent;
   z-index: -1; /* Memastikan efek glow berada di belakang konten */
 }
-/* SLIDER - SECTION */
+/* SLIDER - SECTION (Center Highlight) */
 .slider-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 700px;
+  padding: 96px 0;
   background-color: #2a2a2a;
   background-image: url("/img/bg-cam.png");
   background-position: left;
   background-size: contain;
-  /* background-repeat: no-repeat; */
-
-  /* margin-top: 50px;
-  margin-bottom: 50px; */
 }
 .slider-container {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 .content-card,
 .content-card2,
@@ -747,14 +529,8 @@ body {
 .content-card7,
 .content-card8,
 .content-card9 {
-  display: flex;
-  width: 100%;
-  height: 550px;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 10px;
+  background-size: cover;
+  background-position: center;
 }
 .content-card {
   background-image: url("/assets/img-slider/1.png");
@@ -783,131 +559,53 @@ body {
 .content-card9 {
   background-image: url("/assets/img-slider/5.jpg");
 }
-.slider-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transform: translateX(0);
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
-  backdrop-filter: blur(10px);
-}
-.slider-wrapper [class^="content-card"] {
-  position: relative;
-  min-width: 0;
-  flex: 0 0 calc((100% - 20px) / 3);
-  overflow: hidden;
-}
-.slider-wrapper [class^="content-card"]::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transform: scale(1);
-  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
-}
-.slider-wrapper [class^="content-card"]:hover::before {
-  transform: scale(1.05);
-}
-.slide1 {
-  position: relative;
-  z-index: 1;
-  flex: 0 0 calc(10% - 50px);
-  display: flex;
-  width: 578px;
-  height: 114px;
-  padding: 10px;
-  justify-content: left;
-  align-items: center;
-  gap: 10px;
-}
 .btn-text {
   color: #fff;
-  font-family: Poppins;
-  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
   font-style: italic;
-  /* font-weight: 100; */
-  line-height: 94%; /* 22.56px */
+  line-height: 94%;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .span {
   color: #fff;
   text-shadow: 0px 4px 45px rgba(0, 0, 0, 0.45);
-  font-family: "Poppins";
-  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
   font-style: italic;
   font-weight: 800;
-  line-height: 94%; /* 22.56px */
+  line-height: 94%;
 }
 .btn {
-  display: flex;
-  width: 110px;
-  padding: 10px;
+  display: inline-flex;
+  padding: 10px 24px;
   justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
   background: white;
   border-radius: 30px;
   font-weight: 500;
   color: black;
   transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
   cursor: pointer;
-}
-/* .btn::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border-radius: 10rem;
-  z-index: -2;
-}
-.btn::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 100%;
-  background-color: (yellow, 15%);
-  transition: all 0.3s;
-  border-radius: 10rem;
-  z-index: -1;
+  flex-shrink: 0;
 }
 .btn:hover {
-  color: #fff;
-}
-.btn:before {
-  width: 100%;
-} */
-
-/* .slide1 img {
-  width: 100%;
-  border-radius: 8px;
-} */
-
-.dots-container {
-  display: flex;
-  gap: 10px;
-  justify-content: center; /* Pusatkan dots */
-  margin-top: 50px; /* Tambahkan sedikit jarak dari gambar */
-  position: relative; /* Dots akan tetap di dalam container */
-}
-.dots-container .dot {
-  width: 15px;
-  height: 15px;
-  background-color: gray;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background: #facc15;
 }
 
-.dots-container .dot.active {
-  background-color: white;
+/* RESPONSIVE MOBILE REFINEMENTS */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 640px) {
+  .brand-section {
+    padding: 0 16px;
+  }
 }
